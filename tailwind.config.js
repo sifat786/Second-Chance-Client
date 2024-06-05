@@ -90,9 +90,11 @@ module.exports = withMT({
   theme: {
     container: {
       center: true,
-      padding: "2rem",
       screens: {
-        "2xl": "1400px",
+        'sm': '380px',
+        'md': '700px',
+        'lg': '1280px',
+        'xl': '1440px'
       },
     },
     extend: {
