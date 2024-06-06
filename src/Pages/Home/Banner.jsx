@@ -5,7 +5,7 @@ import banner from '../../assets/banner.jpg';
 const Banner = () => {
   return (
 
-    <div className="container lg:flex lg:flex-row-reverse  mb-12 md:mb-10 lg:my-12">
+    <div className="lg:flex lg:flex-row-reverse  mb-12 md:mb-10 lg:my-12">
         <div className="flex items-center justify-center w-full px-6 py-8 lg:h-[32rem] lg:w-1/2">
             <div className="max-w-xl">
                 <h2 className="text-3xl font-semibold text-black dark:text-white lg:text-4xl">Where Every Pet Finds Their Forever <span className="text-[#075f47]">Home</span></h2>

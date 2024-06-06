@@ -4,12 +4,17 @@ import './index.css'
 import {RouterProvider} from "react-router-dom";
 import router from './Router/Router'
 import { ThemeProvider } from "@material-tailwind/react";
+import { HelmetProvider } from 'react-helmet-async';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ThemeProvider>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <HelmetProvider>
+
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+      
+    </HelmetProvider>
   </React.StrictMode>,
 )
