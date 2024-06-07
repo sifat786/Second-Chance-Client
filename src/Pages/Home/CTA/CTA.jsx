@@ -5,7 +5,7 @@ import cta from '../../../assets/cta.jpg';
 
 const CTA = () => {
     return (
-        <div className="lg:flex mb-12 md:mb-10 lg:my-12">
+        <div className="lg:flex lg:my-12 pt-0 md:pt-5">
             <div className="flex items-center justify-center w-full px-6 py-8 lg:h-[32rem] lg:w-1/2">
                 <div className="max-w-xl">
                     <h2 className="text-2xl lg:text-[35px] font-semibold mb-5 md:mb-4 leading-10 dark:text-white">Start Your Adoption Journey <span className="text-[#075f47]">Today!</span></h2>

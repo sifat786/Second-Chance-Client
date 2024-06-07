@@ -3,6 +3,7 @@ import PetCategory from "./Category/PetCategory";
 import CTA from "./CTA/CTA";
 import Banner from "./Banner/Banner";
 import AboutUs from "./AboutUs/AboutUs";
+import Question from "./Question/Question";
 
 
 
@@ -20,6 +21,7 @@ const Home = () => {
             <PetCategory/>
             <CTA/>
             <AboutUs/>
+            <Question/>
         </div>
     );
 };

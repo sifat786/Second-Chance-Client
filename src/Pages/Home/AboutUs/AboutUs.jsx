@@ -6,10 +6,10 @@ import about3 from '../../../assets/about3.jpg';
 
 const AboutUs = () => {
     return (
-        <div className="text-center p-8">
+        <div className="mt-0 mb-20 md:mt-24 md:mb-10 text-center p-8">
             <h2 className="text-2xl lg:text-[35px] font-semibold mb-5 md:mb-4 leading-10 dark:text-white">About <span className="text-[#075f47]">Us</span></h2>
 
-            <div className="flex flex-wrap items-center mt-10 text-center">
+            <div className="flex flex-wrap items-center mt-6 md:mt-10 text-center">
                 <div className="w-full md:w-3/5 lg:w-1/2 px-4">
                     <img src={about1} alt="Adopt a Pet" className="inline-block rounded-lg shadow-lg border border-merino-400" />
                 </div>
@@ -23,7 +23,7 @@ const AboutUs = () => {
                 </div>
             </div>
 
-            <div className="flex flex-wrap items-center mt-20 text-center">
+            <div className="flex flex-wrap items-center mt-6 md:mt-16 text-center">
                 <div className="w-full md:w-3/5 lg:w-1/2 px-4">
                     <img src={about2} alt="Team Collaboration" className="inline-block rounded-lg shadow-lg border border-merino-400" />
                 </div>
@@ -37,7 +37,7 @@ const AboutUs = () => {
                 </div>
             </div>
 
-            <div className="flex flex-wrap items-center mt-20 text-center">
+            <div className="flex flex-wrap items-center mt-6 md:mt-16 text-center">
                 <div className="w-full md:w-3/5 lg:w-1/2 px-4">
                     <img src={about3} alt="Pet Safety" className="inline-block rounded-lg shadow-lg border border-merino-400" />
                 </div>
