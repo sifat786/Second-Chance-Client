@@ -4,6 +4,7 @@ import CTA from "./CTA/CTA";
 import Banner from "./Banner/Banner";
 import AboutUs from "./AboutUs/AboutUs";
 import Question from "./Question/Question";
+import NewsLetter from "./NewsLetter/NewsLetter";
 
 
 
@@ -22,6 +23,7 @@ const Home = () => {
             <CTA/>
             <AboutUs/>
             <Question/>
+            <NewsLetter/>
         </div>
     );
 };
