@@ -1,6 +1,8 @@
 import { Helmet } from "react-helmet-async";
-import Banner from "./Banner";
 import PetCategory from "./Category/PetCategory";
+import CTA from "./CTA/CTA";
+import Banner from "./Banner/Banner";
+import AboutUs from "./AboutUs/AboutUs";
 
 
 
@@ -13,9 +15,11 @@ const Home = () => {
             <Helmet>
                 <title>Second Chance | Home</title>
             </Helmet>
-            
+
             <Banner/>
             <PetCategory/>
+            <CTA/>
+            <AboutUs/>
         </div>
     );
 };
