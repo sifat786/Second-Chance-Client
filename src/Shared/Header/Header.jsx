@@ -2,7 +2,7 @@ import React from "react";
 import {Navbar,Button,IconButton,Collapse} from "@material-tailwind/react";
 import { Link, NavLink } from "react-router-dom";
 import logo from '../../../src/assets/logo.png';
-
+import ThemeToggle from './../../components/ThemeToogle';
 
 
 const Header = () => {
@@ -59,12 +59,13 @@ const Header = () => {
                 </Link>
                 <div className="flex items-center gap-4">
                     <div className="mr-4 hidden lg:block">{navList}</div>
-                    <div>
+                    <div className="flex items-center gap-3">
+                        <ThemeToggle></ThemeToggle>
                         <Button
                             size="md"
                             className="hidden lg:inline-block bg-[#075f47] font-bold text-md"
                         >
-                            <span>Sign in</span>
+                            <span>Sign Up</span>
                         </Button>
                     </div>
                     
@@ -112,7 +113,7 @@ const Header = () => {
                 {navList}
                 <div>
                     <Button size="sm" className="w-full md:w-auto md:px-24 bg-[#075f47] font-bold text-md">
-                        <span>Sign in</span>
+                        <span>Sign Up</span>
                     </Button>
                 </div>
             </Collapse>

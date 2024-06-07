@@ -11,7 +11,6 @@ import NewsLetter from "./NewsLetter/NewsLetter";
 const Home = () => {
 
     
-
     return (
         <div className="container">
             <Helmet>

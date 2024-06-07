@@ -5,6 +5,7 @@ import {RouterProvider} from "react-router-dom";
 import router from './Router/Router'
 import { ThemeProvider } from "@material-tailwind/react";
 import { HelmetProvider } from 'react-helmet-async';
+import { ThemeProviders } from './Context/ThemeContext';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -12,7 +13,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <HelmetProvider>
 
       <ThemeProvider>
-        <RouterProvider router={router} />
+        <ThemeProviders>
+          <RouterProvider router={router} />
+        </ThemeProviders>
       </ThemeProvider>
       
     </HelmetProvider>
