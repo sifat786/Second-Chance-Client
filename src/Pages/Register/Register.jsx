@@ -10,6 +10,8 @@ import useAuth from "@/Hooks/useAuth";
 import toast from "react-hot-toast";
 import useAxiosPublic from "@/Hooks/useAxiosPublic";
 
+const image_hosting_key = import.meta.env.VITE_IMGBB_API_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const Register = () => {
 
@@ -20,8 +22,6 @@ const Register = () => {
     const { register, handleSubmit, reset , formState: { errors } } = useForm();
     const axiosPublic = useAxiosPublic();
 
-    const image_hosting_key = import.meta.env.VITE_IMGBB_API_KEY;
-    const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
     //! Register with Email:
     const handleRegister = async (data) => {
@@ -59,7 +59,7 @@ const Register = () => {
         const from = location?.state || '/';
         try {
             await googleLogin();
-            toast.success('SignIn Successfully');
+            toast.success('SignUp Successfully');
             navigate(from, {replace: true});
 
         } catch (err) {
@@ -74,7 +74,7 @@ const Register = () => {
         const from = location?.state || '/';
         try{
             await githubLogin();
-            toast.success('SignIn Successfully');
+            toast.success('SignUp Successfully');
             navigate(from, {replace: true});
         } catch(err) {
             console.log(err);
@@ -141,7 +141,6 @@ const Register = () => {
                                 type='file'
                                 id='image'
                                 accept='image/*'
-                                // name="image"
                                 className="bg-[#075f47] text-white rounded-md  px-2"
                                 {...register("image")}
                             />
@@ -214,7 +213,7 @@ const Register = () => {
 
                     {/* //! SignUp Btn: */}
                     <div className="mt-6">
-                        <input type="submit" value="Sign Up" className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#075f47] rounded-lg hover:bg-black focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50 cursor-pointer"/>
+                        <input type="submit" value="Sign Up" className="w-full px-6 py-3 text-md font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#075f47] rounded-lg hover:bg-black focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50 cursor-pointer"/>
                     </div>
             
                     <div className="flex justify-center mt-4">

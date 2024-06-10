@@ -111,12 +111,12 @@ const Header = () => {
                                 </MenuList>
                             </Menu>
                             :
-                            <Link to={'/register'}>
+                            <Link to={'/login'}>
                                 <Button
                                     size="md"
                                     className="hidden lg:inline-block bg-[#075f47] font-bold text-md"
                                 >
-                                    <span>Sign Up</span>
+                                    <span>Sign In</span>
                                 </Button>
                             </Link>
                         }
@@ -167,9 +167,9 @@ const Header = () => {
                 <div>
                     {
                         !user &&
-                        <Link to={'/register'}>
+                        <Link to={'/login'}>
                             <Button size="sm" className="w-full md:w-auto md:px-24 bg-[#075f47] font-bold text-md">
-                                <span>Sign Up</span>
+                                <span>Sign In</span>
                             </Button>
                         </Link>
                     }
