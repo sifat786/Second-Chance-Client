@@ -6,18 +6,23 @@ import router from './Router/Router'
 import { ThemeProvider } from "@material-tailwind/react";
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProviders } from './Context/ThemeContext';
+import { Toaster } from 'react-hot-toast'
+import AuthProvider from './Provider/AuthProvider';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <HelmetProvider>
+        <AuthProvider>
 
-      <ThemeProvider>
-        <ThemeProviders>
-          <RouterProvider router={router} />
-        </ThemeProviders>
-      </ThemeProvider>
-      
+          <ThemeProvider>
+            <ThemeProviders>
+              <RouterProvider router={router} />
+              <Toaster/>
+            </ThemeProviders>
+          </ThemeProvider>
+
+        </AuthProvider>
     </HelmetProvider>
   </React.StrictMode>,
 )

@@ -6,7 +6,7 @@ import about3 from '../../../assets/about3.jpg';
 
 const AboutUs = () => {
     return (
-        <div className="mt-0 mb-20 md:mt-24 md:mb-10 text-center p-8">
+        <div id='about' className="mt-0 mb-5 md:mb-10 md:mt-20 text-center p-8">
             <h2 className="text-2xl lg:text-[35px] font-semibold mb-5 md:mb-4 leading-10 dark:text-white">About <span className="text-[#075f47]">Us</span></h2>
 
             <div className="flex flex-wrap items-center mt-6 md:mt-10 text-center">

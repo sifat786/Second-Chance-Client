@@ -9,9 +9,7 @@ const Root = () => {
         <div>
             <Header/>
 
-            <div className="min-h-[calc(100vh-68px)]">
-                <Outlet/>
-            </div>
+            <Outlet/>
             
             <Footer/>
         </div>

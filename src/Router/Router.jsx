@@ -20,6 +20,14 @@ const router = createBrowserRouter([
             element: <Home/>
         },
         {
+          path: '/register',
+          element: <Register/>
+        },
+        {
+          path: '/login',
+          element: <Login/>
+        },
+        {
             path: '/petListing',
             element: <PetListing/>
         },
@@ -28,16 +36,6 @@ const router = createBrowserRouter([
           element: <DonationCampaigns/>
         }
       ]
-    },
-    
-    //* Login/Register:
-    {
-      path: '/login',
-      element: <Login/>
-    },
-    {
-        path: '/register',
-        element: <Register/>
     },
     {
       //* User route:

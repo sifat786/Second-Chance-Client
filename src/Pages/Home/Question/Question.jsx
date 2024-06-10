@@ -22,7 +22,7 @@ const Question = () => {
     const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
     return (
-        <div id='faq' className="mt-0 mb-20 md:mt-24 md:mb-10 px-5 md:px-20">
+        <div id='faq' className="mt-0 mb-20 md:mt-20 md:mb-10 px-5 md:px-20">
             <h2 className="text-3xl font-semibold text-center dark:text-white lg:text-4xl">Frequently Asked <span className="text-[#075f47]">Questions</span></h2>
             <p className="w-auto md:w-[580px] text-center mx-auto mt-4 mb-8 text-md text-gray-600 dark:text-gray-400 lg:text-base">Have questions about pet adoption? Our FAQ section provides answers to common queries about the adoption process, requirements, support after adoption and preparations. Find the information you need to bring your new furry friend home.</p>
 
