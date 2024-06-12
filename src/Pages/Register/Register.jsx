@@ -41,7 +41,7 @@ const Register = () => {
                 //* User Registration:
                 await createUser(email, password);
                 await updateUser(name, res.data.data.display_url);
-                setUser({ ...user, displayName: name, photoURL: res.data.data.display_url })
+                setUser({ ...user, displayName: name, photoURL: res.data.data.display_url });
                 toast.success('SignUp Successfully');
                 navigate(from, {replace: true});
                 
@@ -123,6 +123,7 @@ const Register = () => {
                         </span>
 
                         <input 
+                            autoComplete="name"
                             type="text" 
                             className="block w-full py-3 text-gray-900 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-[#075f47] dark:focus:border-[#075f47] focus:ring-[#075f47] focus:outline-none focus:ring focus:ring-opacity-40   placeholder:text-gray-500" 
                             placeholder="Username"
@@ -134,9 +135,8 @@ const Register = () => {
                     {/* //! Image: */}
                     <div>    
                         <label htmlFor="image" className="flex items-center px-3 py-3 mx-auto mt-4 text-center bg-white border-2 border-dashed rounded-lg cursor-pointer dark:border-gray-600 dark:bg-gray-900">
-                        <label htmlFor='image' className='block mb-2 text-sm'>
-                        </label>
                             <input
+                                autoComplete="image"
                                 required
                                 type='file'
                                 id='image'
@@ -156,6 +156,7 @@ const Register = () => {
                         </span>
 
                         <input 
+                            autoComplete="email"
                             type="email" 
                             className="block w-full py-3 text-gray-900 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-[#075f47] dark:focus:border-[#075f47] focus:ring-[#075f47] focus:outline-none focus:ring focus:ring-opacity-40   placeholder:text-gray-500" 
                             placeholder="Email address"
@@ -182,6 +183,7 @@ const Register = () => {
                         </span>
 
                         <input 
+                            autoComplete="password"
                             type={showPassword ? 'text' : 'password'} 
                             className="block w-full px-10 py-3 text-gray-900 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-[#075f47] dark:focus:border-[#075f47] focus:ring-[#075f47] focus:outline-none focus:ring focus:ring-opacity-40   placeholder:text-gray-500" 
                             placeholder="Password"
