@@ -8,25 +8,28 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import useAuth from "@/Hooks/useAuth";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 import useAxiosPublic from "@/Hooks/useAxiosPublic";
+import useAxiosSecure from "@/Hooks/useAxiosSecure";
+
 
 const image_hosting_key = import.meta.env.VITE_IMGBB_API_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const Register = () => {
 
-    const {createUser, updateUser, googleLogin, githubLogin, user, setUser} = useAuth();
+    const {createUser, updateUser, googleLogin, githubLogin,} = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-    const { register, handleSubmit, reset , formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
 
 
     //! Register with Email:
     const handleRegister = async (data) => {
         const {name, email, password } = data;
-        reset();
         const from = location?.state || '/';
 
         const imageFile = { image: data.image[0] };
@@ -39,11 +42,28 @@ const Register = () => {
 
             try {
                 //* User Registration:
-                await createUser(email, password);
-                await updateUser(name, res.data.data.display_url);
-                setUser({ ...user, displayName: name, photoURL: res.data.data.display_url });
-                toast.success('SignUp Successfully');
-                navigate(from, {replace: true});
+                await createUser(email, password)
+                .then( async () => {
+                    await updateUser(name, res.data.data.display_url)
+                        .then( async () => {
+                            //! create user entry in database:
+                            const userInfo = {
+                                name: name,
+                                email: email,
+                                role: 'user',
+                                pass: password,
+                                image: res.data.data.display_url
+                            }
+                            await axiosSecure.post('/users', userInfo)
+                                .then(res => {
+                                    if(res.data.insertedId) {
+                                        // setUser({ ...user, displayName: name, photoURL: res.data.data.display_url });
+                                        toast.success('SignUp Successfully');
+                                        navigate(from, {replace: true});
+                                    }
+                                })
+                        })
+                })
                 
             } catch (err) {
                 console.log(err);
@@ -58,9 +78,22 @@ const Register = () => {
 
         const from = location?.state || '/';
         try {
-            await googleLogin();
-            toast.success('SignUp Successfully');
-            navigate(from, {replace: true});
+            await googleLogin()
+            .then(res => {
+                const userInfo = {
+                    name: res.user?.displayName,
+                    email: res.user?.email,
+                    role: 'user',
+                    image: res.user?.photoURL
+                }
+                axiosSecure.post('/users', userInfo)
+                .then(res => {
+                    if(res.data.insertedId) {
+                        toast.success('SignUp Successfully');
+                        navigate(from, {replace: true});
+                    }
+                })
+            })
 
         } catch (err) {
             console.log(err);
@@ -73,9 +106,22 @@ const Register = () => {
 
         const from = location?.state || '/';
         try{
-            await githubLogin();
-            toast.success('SignUp Successfully');
-            navigate(from, {replace: true});
+            await githubLogin()
+                .then(res => {
+                    const userInfo = {
+                        name: res.user?.displayName,
+                        email: res.user?.email,
+                        role: 'user',
+                        image: res.user?.photoURL
+                    }
+                    axiosSecure.post('/users', userInfo)
+                    .then(res => {
+                        if(res.data.insertedId()) {
+                            toast.success('SignUp Successfully');
+                            navigate(from, {replace: true});
+                        }
+                    })
+                })
         } catch(err) {
             console.log(err);
             toast.error(err.message);
@@ -85,6 +131,10 @@ const Register = () => {
     return (
         <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 md:max-w-lg lg:max-w-6xl my-10 md:my-16 lg:my-20">
             <div className="hidden bg-cover lg:block lg:w-1/2" style={{backgroundImage: `url(${signup})`}}></div>
+
+            <Helmet>
+                <title>Second Chance | SignUp</title>
+            </Helmet>
         
             <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
                 <Link to={'/'} className="flex justify-center mx-auto">

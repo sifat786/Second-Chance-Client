@@ -7,6 +7,7 @@ import useAuth from "@/Hooks/useAuth";
 import { Typography, Menu, MenuHandler, MenuList, MenuItem, Avatar,} from "@material-tailwind/react";
 import {UserCircleIcon, ChevronDownIcon, PowerIcon,} from "@heroicons/react/24/solid";
 import userDefaultPic from '../../assets/userDefaultPic.png';
+import toast from "react-hot-toast";
 
 
 const Header = () => {
@@ -55,6 +56,12 @@ const Header = () => {
         </ul>
     );
 
+    //! LogOut:
+    const handleLogout = async () => {
+        await logOut();
+        toast.success('SignOut Successfully');
+    }
+
     return (
         <Navbar className="sticky top-0 z-20 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-0">
             <div className="flex items-center justify-between text-blue-gray-900">
@@ -102,7 +109,7 @@ const Header = () => {
                                         </MenuItem>
                                     </Link>
                                     <MenuItem
-                                        onClick={logOut}
+                                        onClick={handleLogout}
                                         className="flex items-center gap-2 rounded hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
                                     >
                                         <PowerIcon className="h-4 w-4 text-red-500" strokeWidth={2} />

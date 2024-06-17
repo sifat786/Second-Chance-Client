@@ -8,6 +8,8 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import useAuth from "@/Hooks/useAuth";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
+import useAxiosSecure from "@/Hooks/useAxiosSecure";
 
 
 
@@ -18,6 +20,7 @@ const Login = () => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const { register, handleSubmit, reset , formState: { errors } } = useForm();
+    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
         if(user) {
@@ -43,14 +46,26 @@ const Login = () => {
         }
     }
 
-    //! Google Login:
     const handleGoogleLogin = async () => {
 
         const from = location?.state || '/';
         try {
-            await googleLogin();
-            toast.success('SignIn Successfully');
-            navigate(from, {replace: true});
+            await googleLogin()
+            .then(res => {
+                const userInfo = {
+                    name: res.user?.displayName,
+                    email: res.user?.email,
+                    role: 'user',
+                    image: res.user?.photoURL
+                }
+                axiosSecure.post('/users', userInfo)
+                .then(res => {
+                    if(res.data.insertedId) {
+                        toast.success('SignIn Successfully');
+                        navigate(from, {replace: true});
+                    }
+                })
+            })
 
         } catch (err) {
             console.log(err);
@@ -63,18 +78,35 @@ const Login = () => {
 
         const from = location?.state || '/';
         try{
-            await githubLogin();
-            toast.success('SignIn Successfully');
-            navigate(from, {replace: true});
+            await githubLogin()
+                .then(res => {
+                    const userInfo = {
+                        name: res.user?.displayName,
+                        email: res.user?.email,
+                        role: 'user',
+                        image: res.user?.photoURL
+                    }
+                    axiosSecure.post('/users', userInfo)
+                    .then(res => {
+                        if(res.data.insertedId()) {
+                            toast.success('SignIn Successfully');
+                            navigate(from, {replace: true});
+                        }
+                    })
+                })
         } catch(err) {
             console.log(err);
-            toast.error("your email and password doesn't matched");
+            toast.error(err.message);
         }
     }
 
     return (
         <div className="flex flex-row-reverse w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 md:max-w-lg lg:max-w-6xl my-10 md:my-16 lg:my-20">
             <div className="hidden bg-cover lg:block lg:w-1/2" style={{backgroundImage: `url(${login})`}}></div>
+
+            <Helmet>
+                <title>Second Chance | SignIn</title>
+            </Helmet>
         
             <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
                 <Link to={'/'} className="flex justify-center mx-auto">
