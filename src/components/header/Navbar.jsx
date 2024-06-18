@@ -77,11 +77,11 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`bg-black dark:bg-gray-900 fixed w-full top-0 z-10 ${
+      className={`bg-black dark:bg-gray-500 fixed w-full top-0 z-10 ${
         show ? "translate-y-0" : "-translate-y-full"
       } bg-opacity-30 text-white transition-transform duration-300`}
     >
-      <div className='w-[90%] mx-auto navbar flex justify-between dark:bg-gray-900'>
+      <div className='w-[90%] mx-auto navbar flex justify-between dark:bg-gray-500'>
         <div className='navbar-start max-w-60'>
           <div className='dropdown'>
             <div tabIndex={0} role='button' className='btn btn-ghost lg:hidden'>
@@ -164,14 +164,14 @@ const Navbar = () => {
                       >
                         <Link
                           to='/dashboard'
-                          className='w-full text-white bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-2 md:px-5 py-2.5 text-center me-2'
+                          className='w-full text-white bg-gradient-to-r from-green-400 to-green-600 font-medium rounded-lg text-sm px-2 md:px-5 py-2.5 text-center me-2'
                         >
                           <li>Dashboard</li>
                         </Link>
                         <button
                           onClick={handleLogOut}
                           type='button'
-                          className='w-full text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-2 md:px-5 py-2.5 text-center me-2'
+                          className='w-full text-white bg-black font-medium rounded-lg text-sm px-2 md:px-5 py-2.5 text-center me-2'
                         >
                           Logout
                         </button>
@@ -181,7 +181,7 @@ const Navbar = () => {
                 )
               ) : (
                 <Link to='/login'>
-                  <button className='w-full text-white bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-2 md:px-5 py-2.5 text-center me-2'>
+                  <button className='w-full text-white bg-gradient-to-r from-green-400 to-green-600  font-medium rounded-lg text-sm px-2 md:px-5 py-2.5 text-center me-2'>
                     Login
                   </button>
                 </Link>

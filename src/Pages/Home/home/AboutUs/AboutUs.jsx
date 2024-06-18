@@ -14,7 +14,7 @@ const AboutUs = () => {
                     <img src={about1} alt="Adopt a Pet" className="inline-block rounded-lg shadow-lg border border-merino-400" />
                 </div>
                 <div className="w-full md:w-2/5 lg:w-1/2 px-4 text-center md:text-left lg:pl-12">
-                    <h3 className="font-bold mt-8 text-xl md:mt-0 sm:text-2xl">
+                    <h3 className="font-bold mt-8 text-xl md:mt-0 sm:text-2xl dark:text-white">
                         Simple Adoption Process
                     </h3>
                     <p className="mt-4 text-sm text-gray-600 dark:text-gray-400 lg:text-base">
@@ -28,7 +28,7 @@ const AboutUs = () => {
                     <img src={about2} alt="Team Collaboration" className="inline-block rounded-lg shadow-lg border border-merino-400" />
                 </div>
                 <div className="w-full md:w-2/5 lg:w-1/2 px-4 md:order-first text-center md:text-left lg:pr-12">
-                    <h3 className="font-bold mt-8 text-xl md:mt-0 sm:text-2xl">
+                    <h3 className="font-bold mt-8 text-xl md:mt-0 sm:text-2xl dark:text-white">
                         Easy Collaboration
                     </h3>
                     <p className="mt-4 text-sm text-gray-600 dark:text-gray-400 lg:text-base">
@@ -42,7 +42,7 @@ const AboutUs = () => {
                     <img src={about3} alt="Pet Safety" className="inline-block rounded-lg shadow-lg border border-merino-400" />
                 </div>
                 <div className="w-full md:w-2/5 lg:w-1/2 px-4 text-center md:text-left lg:pl-12">
-                    <h3 className="font-bold mt-8 text-xl md:mt-0 sm:text-2xl">
+                    <h3 className="font-bold mt-8 text-xl md:mt-0 sm:text-2xl dark:text-white">
                         Commitment to Safety
                     </h3>
                     <p className="mt-4 text-sm text-gray-600 dark:text-gray-400 lg:text-base">

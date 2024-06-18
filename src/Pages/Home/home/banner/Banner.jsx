@@ -8,7 +8,7 @@ import './custom-pagination.css';
 
 const Banner = () => {
     return (
-        <div className="mt-[100px] md:mt-[140px] relative">
+        <div className="pt-[100px] md:pt-[140px] relative">
             <Swiper
                  pagination={{ el: '.custom-pagination', clickable: true }}
                 modules={[ Pagination, Autoplay]}
