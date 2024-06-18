@@ -1,30 +1,24 @@
-import { Helmet } from "react-helmet-async";
-import PetCategory from "./Category/PetCategory";
-import CTA from "./CTA/CTA";
-import Banner from "./Banner/Banner";
-import AboutUs from "./AboutUs/AboutUs";
-import Question from "./Question/Question";
-import NewsLetter from "./NewsLetter/NewsLetter";
-
-
+import React from "react";
+import Banner from "./home/banner/Banner";
+import CTA from '../home/home/CTA/CTA';
+import AboutUs from '../home/home/AboutUs/AboutUs';
+// import Question from '../home/home/Question/Question';
+import NewsLetter from '../home/home/NewsLetter/NewsLetter';
+import PetCategory from '../home/home/Category/PetCategory';
 
 const Home = () => {
+  return (
+    <div className='container bg-white dark:bg-gray-900'>
 
-    
-    return (
-        <div className="container">
-            <Helmet>
-                <title>Second Chance | Home</title>
-            </Helmet>
+        <Banner/>
+        <PetCategory/>
+        <CTA/>
+        <AboutUs/>
+        {/* <Question/> */}
+        <NewsLetter/>
 
-            <Banner/>
-            <PetCategory/>
-            <CTA/>
-            <AboutUs/>
-            <Question/>
-            <NewsLetter/>
-        </div>
-    );
+    </div>
+  );
 };
 
 export default Home;

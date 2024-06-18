@@ -1,0 +1,66 @@
+[
+    {
+      "image": "https://i.ibb.co/SKyHw37/dog.jpg",
+      "name": "Bella",
+      "category": "Dog",
+      "age": "150 days",
+      "location": "New York, NY"
+    },
+    {
+      "image": "https://i.ibb.co/1JSxQs3/18496.jpg",
+      "name": "Max",
+      "category": "Hamsters",
+      "age": "200 days",
+      "location": "Los Angeles, CA"
+    },
+    {
+      "image": "https://i.ibb.co/r47xqL3/2151246683.jpg",
+      "name": "Luna",
+      "category": "Rabbit",
+      "age": "80 days",
+      "location": "Chicago, IL"
+    },
+    {
+      "image": "https://i.ibb.co/vBf0BBH/2150721032.jpg",
+      "name": "Charlie",
+      "category": "Fish",
+      "age": "120 days",
+      "location": "Houston, TX"
+    },
+    {
+      "image": "https://i.ibb.co/VTbn6db/2150679156.jpg",
+      "name": "Lucy",
+      "category": "Cat",
+      "age": "90 days",
+      "location": "Phoenix, AZ"
+    },
+    {
+      "image": "https://i.ibb.co/37KLtCZ/2151495339.jpg",
+      "name": "Milo",
+      "category": "Bird",
+      "age": "60 days",
+      "location": "Philadelphia, PA"
+    },
+    {
+      "image": "https://i.ibb.co/JrK09cy/64609.jpg",
+      "name": "Daisy",
+      "category": "Dog",
+      "age": "110 days",
+      "location": "San Antonio, TX"
+    },
+    {
+      "image": "https://i.ibb.co/YjF8ygV/66806.jpg",
+      "name": "Oscar",
+      "category": "Cat",
+      "age": "130 days",
+      "location": "San Diego, CA"
+    },
+    {
+      "image": "https://i.ibb.co/c1qx6B8/12843.jpg",
+      "name": "Ruby",
+      "category": "Hamsters",
+      "age": "100 days",
+      "location": "Dallas, TX"
+    }
+]
+  

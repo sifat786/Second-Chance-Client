@@ -1,283 +1,250 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import signup from '../../assets/signup.jpg';
-import logo from '../../assets/logo.png';
-import { FiEye, FiEyeOff } from "react-icons/fi";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa6";
-import { useForm } from "react-hook-form";
 import { useState } from "react";
-import useAuth from "@/Hooks/useAuth";
-import toast from "react-hot-toast";
-import { Helmet } from "react-helmet-async";
-import useAxiosPublic from "@/Hooks/useAxiosPublic";
-import useAxiosSecure from "@/Hooks/useAxiosSecure";
+import { useForm } from "react-hook-form";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
+import { updateProfile } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
+import SocialLogin from "../../components/socialLogin/SocialSignIn";
 
-
-const image_hosting_key = import.meta.env.VITE_IMGBB_API_KEY;
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOISTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const Register = () => {
+  const [viewPassword, setViewPassword] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
-    const {createUser, updateUser, googleLogin, githubLogin,} = useAuth();
-    const location = useLocation();
-    const navigate = useNavigate();
-    const [showPassword, setShowPassword] = useState(false);
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const axiosPublic = useAxiosPublic();
-    const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
+  const { createUser, setUser } = useAuth();
 
+  const onSubmit = async (data) => {
+    const { name, email, password, photo } = data;
 
-    //! Register with Email:
-    const handleRegister = async (data) => {
-        const {name, email, password } = data;
-        const from = location?.state || '/';
+    if (!/[A-Z]/.test(password)) {
+      setPasswordError("");
+      setPasswordError("Password must have at least one uppercase letter");
+      return;
+    } else if (!/[a-z]/.test(password)) {
+      setPasswordError("");
+      setPasswordError("Password must have at least one lowercase letter");
+      return;
+    } else if (password.length < 6) {
+      setPasswordError("");
+      setPasswordError("Password length must be at least 6 characters");
+      return;
+    } else {
+      setPasswordError("");
 
-        const imageFile = { image: data.image[0] };
-        const res = await axiosPublic.post(image_hosting_api, imageFile, {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        })
-        if(res.data.success) {
+      const imageFile = { image: data.photo[0] };
 
-            try {
-                //* User Registration:
-                await createUser(email, password)
-                .then( async () => {
-                    await updateUser(name, res.data.data.display_url)
-                        .then( async () => {
-                            //! create user entry in database:
-                            const userInfo = {
-                                name: name,
-                                email: email,
-                                role: 'user',
-                                pass: password,
-                                image: res.data.data.display_url
-                            }
-                            await axiosSecure.post('/users', userInfo)
-                                .then(res => {
-                                    if(res.data.insertedId) {
-                                        // setUser({ ...user, displayName: name, photoURL: res.data.data.display_url });
-                                        toast.success('SignUp Successfully');
-                                        navigate(from, {replace: true});
-                                    }
-                                })
-                        })
-                })
-                
-            } catch (err) {
-                console.log(err);
-                toast.error(err.message);
-            }
+      console.log(imageFile);
 
+      const res = await axiosPublic.post(image_hosting_api, imageFile, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      });
+
+      if (res.data.success) {
+        const userDetail = {
+          name: data.name,
+          email: data.email,
+          role: "user",
+          password: data.password,
+          image: res.data.data.display_url,
+        };
+
+        createUser(email, password)
+          .then(async (userCredential) => {
+            const user = userCredential.user;
+            console.log(user);
+
+            await updateProfile(user, {
+              displayName: name,
+              photoURL: res.data.data.display_url,
+            });
+          })
+          .then(() => {
+            setUser({
+              displayName: name,
+              photoURL: res.data.data.display_url,
+              email: email,
+            });
+          });
+
+        const menuRes = await axiosSecure.post("/users", userDetail);
+
+        console.log(menuRes.data);
+
+        if (menuRes.data.insertedId) {
+          // show success popup
+          reset();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${data.name} is an user now!`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          navigate("/");
         }
+      }
+      console.log("with image url", res.data);
     }
+  };
 
-    //! Google Login:
-    const handleGoogleLogin = async () => {
-
-        const from = location?.state || '/';
-        try {
-            await googleLogin()
-            .then(res => {
-                const userInfo = {
-                    name: res.user?.displayName,
-                    email: res.user?.email,
-                    role: 'user',
-                    image: res.user?.photoURL
-                }
-                axiosSecure.post('/users', userInfo)
-                .then(res => {
-                    if(res.data.insertedId) {
-                        toast.success('SignUp Successfully');
-                        navigate(from, {replace: true});
-                    }
-                })
-            })
-
-        } catch (err) {
-            console.log(err);
-            toast.error(err.message);
-        }
-    }
-
-    //! Github Login:
-    const handleGithubLogin = async () => {
-
-        const from = location?.state || '/';
-        try{
-            await githubLogin()
-                .then(res => {
-                    const userInfo = {
-                        name: res.user?.displayName,
-                        email: res.user?.email,
-                        role: 'user',
-                        image: res.user?.photoURL
-                    }
-                    axiosSecure.post('/users', userInfo)
-                    .then(res => {
-                        if(res.data.insertedId()) {
-                            toast.success('SignUp Successfully');
-                            navigate(from, {replace: true});
-                        }
-                    })
-                })
-        } catch(err) {
-            console.log(err);
-            toast.error(err.message);
-        }
-    }
-
-    return (
-        <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 md:max-w-lg lg:max-w-6xl my-10 md:my-16 lg:my-20">
-            <div className="hidden bg-cover lg:block lg:w-1/2" style={{backgroundImage: `url(${signup})`}}></div>
-
-            <Helmet>
-                <title>Second Chance | SignUp</title>
-            </Helmet>
-        
-            <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
-                <Link to={'/'} className="flex justify-center mx-auto">
-                    <img className="w-auto h-14" src={logo} alt="logo" />
-                </Link>
-                <p className="mt-3 text-xl text-center text-gray-600 dark:text-gray-200">New Here!</p>
-
-                {/* //! Google: */}
-                <button onClick={handleGoogleLogin} className="py-3 w-full flex items-center justify-center gap-2 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <FcGoogle className="text-[26px]" />
-                    <span className="font-bold text-lg text-center">Sign up with Google</span>
-                </button>
-                {/* //! GitHub: */}
-                <button onClick={handleGithubLogin} className="py-3 w-full flex items-center justify-center gap-2 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <FaGithub className="text-2xl text-black" />
-                    <span className="font-bold text-lg text-center">Sign up with GitHub</span>
-                </button>
-        
-                <div className="flex items-center justify-between mt-6">
-                    <span className="w-1/5 border-b dark:border-gray-600 lg:w-1/4"></span>
-        
-                    <p className="text-xs text-center text-gray-500 uppercase dark:text-gray-400">or Signup
-                        with email</p>
-        
-                    <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
-                </div>
-        
-                {/* ///! Input fields: */}
-                <form onSubmit={handleSubmit(handleRegister)}>
-                    {/* //! Name: */}
-                    <div className="relative flex items-center mt-6">
-                        <span className="absolute">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-500 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
-                        </span>
-
-                        <input 
-                            autoComplete="name"
-                            type="text" 
-                            className="block w-full py-3 text-gray-900 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-[#075f47] dark:focus:border-[#075f47] focus:ring-[#075f47] focus:outline-none focus:ring focus:ring-opacity-40   placeholder:text-gray-500" 
-                            placeholder="Username"
-                            required
-                            {...register("name")}
-                        />
-                    </div>
-                    
-                    {/* //! Image: */}
-                    <div>    
-                        <label htmlFor="image" className="flex items-center px-3 py-3 mx-auto mt-4 text-center bg-white border-2 border-dashed rounded-lg cursor-pointer dark:border-gray-600 dark:bg-gray-900">
-                            <input
-                                autoComplete="image"
-                                required
-                                type='file'
-                                id='image'
-                                accept='image/*'
-                                className="bg-[#075f47] text-white rounded-md  px-2"
-                                {...register("image")}
-                            />
-                        </label>
-                    </div>
-
-                    {/* //! Email: */}
-                    <div className="relative flex items-center mt-4">
-                        <span className="absolute">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-500 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                        </span>
-
-                        <input 
-                            autoComplete="email"
-                            type="email" 
-                            className="block w-full py-3 text-gray-900 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-[#075f47] dark:focus:border-[#075f47] focus:ring-[#075f47] focus:outline-none focus:ring focus:ring-opacity-40   placeholder:text-gray-500" 
-                            placeholder="Email address"
-                            {...register("email", { 
-                                required: {
-                                    value: true,
-                                    message: 'please enter your email address!'
-                                },
-                                pattern: {
-                                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                                    message: 'Invalid email address!'
-                                }
-                            })}
-                        />
-                    </div>
-                    {errors.email && <span className="pt-1 text-red-600 font-medium">{errors.email.message}</span>}
-
-                    {/* //! Password: */}
-                    <div className="relative flex items-center mt-4">
-                        <span className="absolute">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-500 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                            </svg>
-                        </span>
-
-                        <input 
-                            autoComplete="password"
-                            type={showPassword ? 'text' : 'password'} 
-                            className="block w-full px-10 py-3 text-gray-900 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-[#075f47] dark:focus:border-[#075f47] focus:ring-[#075f47] focus:outline-none focus:ring focus:ring-opacity-40   placeholder:text-gray-500" 
-                            placeholder="Password"
-                            {...register("password", {
-                                required: {
-                                    value: true,
-                                    message: 'please enter your password!',
-                                },
-                                minLength: {
-                                    value: 6,
-                                    message: 'password must be at least 6 characters!'
-                                },
-                                validate: {
-                                    oneUpperCase: (value) => /^(?=.*[A-Z]).{6,}$/.test(value) || 'password must be at least 1 uppercase letter',
-                                    oneNumeric : (value) => /^(?=.*\d).{8,}$/.test(value) || 'password must be at least 1 numeric character'
-                                }
-                            })}
-                        />
-                        <span 
-                            onClick={() => setShowPassword(!showPassword)}
-                            className='absolute top-[15px] right-5'
-                            >
-                            {
-                                showPassword ? <FiEye className='text-2xl'/> : <FiEyeOff className='text-2xl'/>
-                            }
-                        </span>
-                    </div>
-                    {errors.password && <span className="pt-1 text-red-600 font-medium">{errors.password.message}</span>}
-
-                    {/* //! SignUp Btn: */}
-                    <div className="mt-6">
-                        <input type="submit" value="Sign Up" className="w-full px-6 py-3 text-md font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#075f47] rounded-lg hover:bg-black focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50 cursor-pointer"/>
-                    </div>
-            
-                    <div className="flex justify-center mt-4">
-                        <p className="text-sm text-center text-gray-500 dark:text-gray-400">Already have an account?
-                            <span>{' '}</span>
-                            <Link to={'/login'} className="text-red-500 font-bold hover:underline cursor-pointer">Sign In</Link>
-                        </p>
-                    </div>
-                </form>
-            </div>
+  return (
+    <div className='shadow-sm h-screen mt-20'>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className='max-w-sm mx-auto border p-4 mt-4 rounded-md'
+      >
+        <h2 className='text-2xl text-center text-black dark:text-white font-semibold'>
+          Create a new account!
+        </h2>
+        <div className='mb-3'>
+          <label
+            htmlFor='name'
+            className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+          >
+            Your Name
+          </label>
+          <input
+            type='text'
+            id='name'
+            {...register("name", { required: true })}
+            className='shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'
+            placeholder='Enter name'
+          />
+          {errors.name && (
+            <span className='text-red-600 font-medium'>
+              Your name is required
+            </span>
+          )}
         </div>
-    );
+        <div className='mb-3'>
+          <label
+            htmlFor='email'
+            className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+          >
+            Your email
+          </label>
+          <input
+            type='email'
+            id='email'
+            {...register("email", { required: true })}
+            className='shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'
+            placeholder='name@example.com'
+          />
+          {errors.email && (
+            <span className='text-red-600 font-medium'>
+              Your email is required
+            </span>
+          )}
+        </div>
+        <div className='mb-3 relative'>
+          <label
+            htmlFor='password'
+            className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+          >
+            Your password
+          </label>
+          <input
+            type={viewPassword ? "text" : "password"}
+            id='password'
+            placeholder='Enter password'
+            {...register("password", { required: true })}
+            className='shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'
+          />
+          <span
+            className='absolute right-2 top-10 *:text-xl cursor-pointer'
+            onClick={() => setViewPassword(!viewPassword)}
+          >
+            {viewPassword ? <FaEye /> : <FaEyeSlash />}
+          </span>
+          <p className='text-red-600 font-medium'>{passwordError}</p>
+          {errors.password && (
+            <span className='text-red-600 font-medium'>
+              Your password is required
+            </span>
+          )}
+        </div>
+
+        <div className='mb-4'>
+          <label
+            className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+            htmlFor='file_input'
+          >
+            Upload Your Photo
+          </label>
+          <input
+            className='block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400'
+            id='file_input'
+            {...register("photo", { required: true })}
+            type='file'
+          />
+          {errors.photo && (
+            <span className='text-red-600 font-medium'>
+              Your photo is required
+            </span>
+          )}
+        </div>
+
+        <div className='flex items-start mb-5'>
+          <div className='flex items-center h-5'>
+            <input
+              id='terms'
+              type='checkbox'
+              {...register("condition")}
+              value=''
+              required
+              className='w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800'
+            />
+          </div>
+          <label
+            htmlFor='terms'
+            className='ms-2 text-sm font-medium text-gray-900 dark:text-gray-300'
+          >
+            I agree with the{" "}
+            <a
+              href='#'
+              className='text-blue-600 hover:underline dark:text-blue-500'
+            >
+              terms and conditions
+            </a>
+          </label>
+        </div>
+        <button
+          type='submit'
+          className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+        >
+          Register new account
+        </button>
+        <div className='flex items-start mt-5 dark:text-white'>
+          Already have an account!{"  "} Please
+          <Link to='/login' className='text-blue-600 underline ml-1'>
+            Login
+          </Link>
+        </div>
+
+        <div className='divider my-5 dark:text-white'>or</div>
+
+        <div>
+          <SocialLogin />
+        </div>
+      </form>
+    </div>
+  );
 };
 
 export default Register;

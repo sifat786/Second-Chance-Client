@@ -1,28 +1,19 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import './index.css'
-import {RouterProvider} from "react-router-dom";
-import router from './Router/Router'
-import { ThemeProvider } from "@material-tailwind/react";
-import { HelmetProvider } from 'react-helmet-async';
-import { ThemeProviders } from './Context/ThemeContext';
-import { Toaster } from 'react-hot-toast'
-import AuthProvider from './Provider/AuthProvider';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import { RouterProvider } from "react-router-dom";
+import router from "./routes/Routes";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import AuthContextProvider from "./contexts/AuthContextProvider";
 
+const queryClient = new QueryClient();
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <HelmetProvider>
-        <AuthProvider>
-
-          <ThemeProvider>
-            <ThemeProviders>
-              <RouterProvider router={router} />
-              <Toaster/>
-            </ThemeProviders>
-          </ThemeProvider>
-
-        </AuthProvider>
-    </HelmetProvider>
-  </React.StrictMode>,
-)
+    <QueryClientProvider client={queryClient}>
+      <AuthContextProvider>
+        <RouterProvider router={router} />
+      </AuthContextProvider>
+    </QueryClientProvider>
+  </React.StrictMode>
+);
