@@ -15,11 +15,10 @@ const DonationForm = ({ amount, setAmount, closeModal }) => {
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
-  const [transactionId, setTransactionId] = useState("");
+  const [setTransactionId] = useState("");
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  // call twice in a page but different component
   const donationDetails = useLoaderData();
 
   const handleFormSubmit = async (e) => {
@@ -124,25 +123,7 @@ const DonationDetails = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  // const recommendedDonations = [
-  //   {
-  //     id: 1,
-  //     petName: "Mittens",
-  //     petImage: "https://i.ibb.co/JQnq9yT/pexels-rdne-7516109.jpg",
-  //   },
-  //   {
-  //     id: 2,
-  //     petName: "Charlie",
-  //     petImage: "https://i.ibb.co/7JM1P2r/pexels-7.jpg",
-  //   },
-  //   {
-  //     id: 3,
-  //     petName: "Max",
-  //     petImage: "https://i.ibb.co/JQnq9yT/pexels-rdne-7516109.jpg",
-  //   },
-  // ];
-
-  const { data: recommendedDonations = [], refetch } = useQuery({
+  const { data: recommendedDonations = [] } = useQuery({
     queryKey: ["recommendedDonations"],
     queryFn: async () => {
       const res = await axiosSecure.get("/donations");

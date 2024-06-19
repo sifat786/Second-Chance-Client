@@ -13,7 +13,7 @@ const MyDonations = () => {
   const { data: donations = [], refetch } = useQuery({
     queryKey: ["myDonations"],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/payments/${userEmail}`);
+      const res = await axiosSecure.get(`/payments/${userEmail}`);  
       return res.data;
     },
   });
@@ -47,18 +47,18 @@ const MyDonations = () => {
             </tr>
           </thead>
           <tbody>
-            {donations.map((donation, index) => (
+            {donations.map((donation) => (
               <tr key={donation.id}>
-                <td className='px-4 py-2 border'>
+                <td className='px-4 py-2 border '>
                   <img
                     src={donation?.image}
                     alt={donation?.name}
-                    className='h-16 w-16 object-cover rounded'
+                    className='h-16 w-16 object-cover rounded mx-auto'
                   />
                 </td>
-                <td className='px-4 py-2 border'>{donation?.name}</td>
-                <td className='px-4 py-2 border'>${donation?.donation}</td>
-                <td className='px-4 py-2 border'>
+                <td className='px-4 py-2 border text-center'>{donation?.name}</td>
+                <td className='px-4 py-2 border text-center'>${donation?.donation}</td>
+                <td className='px-4 py-2 border text-center'>
                   {donation?.refund ? (
                     <button className='bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600'>
                       Sent refund request ...

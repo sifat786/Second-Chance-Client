@@ -24,7 +24,6 @@ const CreateDonationCampaign = () => {
   const onSubmit = async (data) => {
     const {
       name,
-      image,
       lastDate,
       maxDonationAmount,
       shortDescription,
@@ -60,10 +59,7 @@ const CreateDonationCampaign = () => {
       console.log(email, donationRes.data);
 
       if (donationRes.data.insertedId) {
-        // show success popup
-
-        // TODO: remove reset() --- comment
-        // reset();
+        reset();
         Swal.fire({
           position: "top-end",
           icon: "success",

@@ -14,8 +14,6 @@ import UpdatePet from "../pages/dashboard/UpdatePet";
 import ErrorPage from "../pages/error/ErrorPage";
 import Users from "../pages/dashboard/admin/Users";
 import AllPets from "../pages/dashboard/admin/AllPets";
-import TestInfiityScroll from "../pages/dashboard/TestInfiityScroll";
-import { baseURL } from "../utils/baseURL";
 import CreateDonationCampaign from "../pages/dashboard/CreateDonationCampaign";
 import AdoptRequests from "../pages/dashboard/AdoptRequests";
 import AdminRoute from "./AdminRoute";
@@ -43,8 +41,7 @@ const router = createBrowserRouter([
       {
         path: "/petDetails/:id",
         element: <PetDetails />,
-        loader: async ({ params }) =>
-          await fetch(`${baseURL}/pets/${params.id}`),
+        loader: async ({ params }) => await fetch(`${import.meta.env.VITE_API_URL}/pets/${params.id}`),
       },
       {
         path: "/login",
@@ -65,8 +62,7 @@ const router = createBrowserRouter([
             <DonationDetails />
           </PrivateRoute>
         ),
-        loader: async ({ params }) =>
-          await fetch(`${baseURL}/donations/${params.id}`),
+        loader: async ({ params }) => await fetch(`${import.meta.env.VITE_API_URL}/donations/${params.id}`),
       },
     ],
   },
@@ -102,7 +98,7 @@ const router = createBrowserRouter([
         path: "/dashboard/updatePet/:id",
         element: <UpdatePet />,
         loader: async ({ params }) =>
-          await fetch(`${baseURL}/pets/${params.id}`),
+          await fetch(`${import.meta.env.VITE_API_URL}/pets/${params.id}`),
       },
       {
         path: "/dashboard/createDonationCampaign",
@@ -116,17 +112,11 @@ const router = createBrowserRouter([
         path: "/dashboard/myDonationCampaignUpdate/:id",
         element: <MyDonationCampUpdate />,
         loader: async ({ params }) =>
-          fetch(`${baseURL}/my-donation-single-item/${params.id}`),
+          fetch(`${import.meta.env.VITE_API_URL}/my-donation-single-item/${params.id}`),
       },
       {
         path: "/dashboard/myDonations",
         element: <MyDonations />,
-      },
-
-      // testing
-      {
-        path: "/dashboard/infinityScroll",
-        element: <TestInfiityScroll />,
       },
 
       // admin can access
@@ -142,7 +132,7 @@ const router = createBrowserRouter([
         path: "/dashboard/updateDonation/:id",
         element: <UpdateDonation />,
         loader: async ({ params }) =>
-          await fetch(`${baseURL}/get-signle-donation-by-admin/${params.id}`),
+          await fetch(`${import.meta.env.VITE_API_URL}/get-single-donation-by-admin/${params.id}`),
       },
       {
         path: "/dashboard/petsByAdmin",

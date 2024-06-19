@@ -16,27 +16,27 @@ const PetCategory = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
 
                 <div className="w-full h-full bg-cover rounded-lg pt-[250px]" style={{backgroundImage: `url(${dog})`}}>
-                  <h3 className='text-center text-white py-2 text-lg font-medium bg-gradient-to-tr from-blue-400 via-violet-500 to-fuchsia-900 rounded-b-lg'>Dog</h3>
+                  <h3 className='text-center text-white py-2 text-lg font-medium bg-gradient-to-tr from-green-500 rounded-b-lg'>Dog</h3>
                 </div>
   
                 <div className="w-full h-full bg-cover rounded-lg pt-[250px]" style={{backgroundImage: `url(${fish})`}}>
-                  <h3 className='text-center text-white py-2 text-lg font-medium bg-gradient-to-tr from-blue-400 via-violet-500 to-fuchsia-900 rounded-b-lg'>Fish</h3>
+                  <h3 className='text-center text-white py-2 text-lg font-medium bg-gradient-to-tr from-green-500 rounded-b-lg'>Fish</h3>
                 </div>
 
                 <div className="w-full h-full bg-cover rounded-lg pt-[250px]" style={{backgroundImage: `url(${cat})`}}>
-                  <h3 className='text-center text-white py-2 text-lg font-medium bg-gradient-to-tr from-blue-400 via-violet-500 to-fuchsia-900 rounded-b-lg'>Cat</h3>
+                  <h3 className='text-center text-white py-2 text-lg font-medium bg-gradient-to-tr from-green-500 rounded-b-lg'>Cat</h3>
                 </div>
 
                 <div className="w-full h-full bg-cover rounded-lg pt-[250px]" style={{backgroundImage: `url(${rabbit})`}}>
-                  <h3 className='text-center text-white py-2 text-lg font-medium bg-gradient-to-tr from-blue-400 via-violet-500 to-fuchsia-900 rounded-b-lg'>Rabbit</h3>
+                  <h3 className='text-center text-white py-2 text-lg font-medium bg-gradient-to-tr from-green-500 rounded-b-lg'>Rabbit</h3>
                 </div>
 
                 <div className="w-full h-full bg-cover rounded-lg pt-[250px]" style={{backgroundImage: `url(${bird})`}}>
-                  <h3 className='text-center text-white py-2 text-lg font-medium bg-gradient-to-tr from-blue-400 via-violet-500 to-fuchsia-900 rounded-b-lg'>Bird</h3>
+                  <h3 className='text-center text-white py-2 text-lg font-medium bg-gradient-to-tr from-green-500 rounded-b-lg'>Bird</h3>
                 </div>
                 
                 <div className="w-full h-full bg-cover rounded-lg pt-[250px]" style={{backgroundImage: `url(${hamsters})`}}>
-                  <h3 className='text-center text-white py-2 text-lg font-medium bg-gradient-to-tr from-blue-400 via-violet-500 to-fuchsia-900 rounded-b-lg'>Hamsters</h3>
+                  <h3 className='text-center text-white py-2 text-lg font-medium bg-gradient-to-tr from-green-500 rounded-b-lg'>Hamsters</h3>
                 </div>
 
             </div> 

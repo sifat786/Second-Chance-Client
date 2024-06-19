@@ -27,12 +27,11 @@ const AddPet = () => {
       age,
       category,
       location,
-      petPhoto,
+      // petPhoto,
       longDescription,
       shortDescription,
     } = data;
 
-    // image upload to imgbb and then get an url
     const imageFile = { image: data.petPhoto[0] };
 
     console.log(imageFile);
@@ -60,7 +59,6 @@ const AddPet = () => {
       console.log(menuRes.data);
 
       if (menuRes.data.insertedId) {
-        // show success popup
         reset();
         Swal.fire({
           position: "top-end",
@@ -151,10 +149,12 @@ const AddPet = () => {
             className='p-2 border border-gray-300 rounded dark:bg-gray-900 dark:text-gray-100'
           >
             <option value=''>All Categories</option>
-            <option value='Dog'>Dogs</option>
-            <option value='Cat'>Cats</option>
-            <option value='Rabbit'>Rabbits</option>
+            <option value='Dog'>Dog</option>
+            <option value='Cat'>Cat</option>
+            <option value='Rabbit'>Rabbit</option>
             <option value='Bird'>Bird</option>
+            <option value='Hamster'>Hamster</option>
+            <option value='Fish'>Fish</option>
           </select>
           <br />
           {errors.category && (

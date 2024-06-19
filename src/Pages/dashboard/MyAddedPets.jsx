@@ -4,7 +4,6 @@ import useAxiosSecure from "./../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-import Loading from "./../../components/loading/Loading";
 
 const MyAddedPets = () => {
   const axiosSecure = useAxiosSecure();
@@ -49,12 +48,10 @@ const MyAddedPets = () => {
   };
 
   const handleMarkAdopt = async (pet) => {
-    // const updateAdopt = true;
     const res = await axiosSecure.patch(`/mark-adopt/${pet._id}`);
     console.log(res);
     if (res.data.modifiedCount > 0) {
       refetch();
-      // show success popup
       Swal.fire({
         position: "top-end",
         icon: "success",
@@ -64,10 +61,6 @@ const MyAddedPets = () => {
       });
     }
   };
-
-  if (loading) {
-    return <Loading />;
-  }
 
   return (
     <div className='mt-5 max-w-7xl mx-auto p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md'>

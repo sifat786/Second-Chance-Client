@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useAdmin from "../hooks/useAdmin";
-import Loading from "../components/loading/Loading";
+import PetSkeleton from "../components/PetSkeleton/PetSkeleton";
 
 const AdminRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -9,7 +9,7 @@ const AdminRoute = ({ children }) => {
   const location = useLocation();
 
   if (loading || isAdminLoading) {
-    return <Loading />;
+    return <PetSkeleton/>;
   }
 
   if (user && isAdmin) {

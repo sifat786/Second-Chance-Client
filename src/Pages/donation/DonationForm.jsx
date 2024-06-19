@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
 const DonationForm = ({ campaignId, closeModal }) => {
+  
   const stripe = useStripe();
   const elements = useElements();
   const [amount, setAmount] = useState("");
@@ -23,7 +24,6 @@ const DonationForm = ({ campaignId, closeModal }) => {
     if (error) {
       console.error(error);
     } else {
-      // Process the payment (this is a mock example, replace with actual backend call)
       console.log("Payment successful:", paymentMethod);
 
       const donationData = {
@@ -31,9 +31,6 @@ const DonationForm = ({ campaignId, closeModal }) => {
         amount,
         paymentMethodId: paymentMethod.id,
       };
-
-      // Replace with actual backend call to save donationData
-      console.log("Donation Data:", donationData);
 
       closeModal();
     }
