@@ -27,7 +27,6 @@ const AddPet = () => {
       age,
       category,
       location,
-      // petPhoto,
       longDescription,
       shortDescription,
     } = data;
@@ -201,6 +200,7 @@ const AddPet = () => {
             </span>
           )}
         </div>
+
         <div>
           <label
             htmlFor='longDescription'
@@ -220,10 +220,11 @@ const AddPet = () => {
             </span>
           )}
         </div>
+        
         <div className='mt-5'>
           <button
             type='submit'
-            className='w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200'
+            className='w-full bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition duration-200'
           >
             Add Pet
           </button>

@@ -39,7 +39,7 @@ const DonationCampaigns = () => {
                   Donated Amount: ${campaign?.getDonationAmount}
                 </p>
                 <Link to={`/donationDetails/${campaign._id}`}>
-                  <button className='mt-4 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition duration-200'>
+                  <button className='mt-4 bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition duration-200'>
                     View Details
                   </button>
                 </Link>

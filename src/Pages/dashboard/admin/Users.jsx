@@ -90,7 +90,7 @@ const Users = () => {
                   {user?.role === "admin" ? null : (
                     <button
                       onClick={() => makeAdmin(user)}
-                      className='bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600'
+                      className='bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700'
                     >
                       Make Admin
                     </button>

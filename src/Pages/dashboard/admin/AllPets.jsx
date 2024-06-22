@@ -20,7 +20,6 @@ const AllPets = () => {
 
     if (res.data.modifiedCount > 0) {
       refetch();
-      // show success popup
       Swal.fire({
         position: "top-end",
         icon: "success",
@@ -36,7 +35,6 @@ const AllPets = () => {
 
     if (res.data.modifiedCount > 0) {
       refetch();
-      // show success popup
       Swal.fire({
         position: "top-end",
         icon: "success",
@@ -136,7 +134,7 @@ const AllPets = () => {
                     </button>
                   )}
                   <Link to={`/dashboard/updatePet/${pet._id}`}>
-                    <button className='bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600'>
+                    <button className='bg-black text-white px-3 py-1 rounded'>
                       Update
                     </button>
                   </Link>

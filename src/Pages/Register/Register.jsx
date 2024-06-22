@@ -84,10 +84,8 @@ const Register = () => {
 
         const menuRes = await axiosSecure.post("/users", userDetail);
 
-        console.log(menuRes.data);
 
         if (menuRes.data.insertedId) {
-          // show success popup
           reset();
           Swal.fire({
             position: "top-end",
@@ -99,12 +97,11 @@ const Register = () => {
           navigate("/");
         }
       }
-      console.log("with image url", res.data);
     }
   };
 
   return (
-    <div className='shadow-sm h-screen mt-20'>
+    <div className='shadow-sm pt-[150px] pb-[50px]'>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className='max-w-sm mx-auto border p-4 mt-4 rounded-md'

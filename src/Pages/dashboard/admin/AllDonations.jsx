@@ -105,7 +105,7 @@ const AllDonations = () => {
                 </td>
                 <td className='px-6 py-4 border-b border-gray-300'>
                   <Link to={`/dashboard/updateDonation/${campaign._id}`}>
-                    <button className='bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 mr-2'>
+                    <button className='bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700 mr-2'>
                       Edit
                     </button>
                   </Link>

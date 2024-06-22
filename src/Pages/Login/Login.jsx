@@ -25,7 +25,6 @@ const Login = () => {
     setError("");
     const { email, password } = data;
 
-    console.log("helllo login");
     signIn(email, password)
       .then((userCredential) => {
         setError("");
@@ -38,7 +37,7 @@ const Login = () => {
   };
 
   return (
-    <div className='pt-24 h-screen'>
+    <div className='pt-[150px] pb-[50px]'>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className='max-w-sm mx-auto border rounded shadow-sm p-4'

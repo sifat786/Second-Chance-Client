@@ -72,7 +72,7 @@ const MyDonationCampUpdate = () => {
         );
 
         if (petUpdate.data.modifiedCount > 0) {
-          // show success popup
+          reset();
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -99,7 +99,6 @@ const MyDonationCampUpdate = () => {
       );
 
       if (petUpdate.data.modifiedCount > 0) {
-        // show success popup
         Swal.fire({
           position: "top-end",
           icon: "success",

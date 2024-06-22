@@ -101,7 +101,6 @@ const PetDetails = () => {
       });
       navigate("/petListing");
     }
-    // Close the modal after submission
     closeModal();
   };
 
@@ -186,14 +185,14 @@ const PetDetails = () => {
             </div>
             <button
               type='submit'
-              className='w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200'
+              className='w-full bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition duration-200'
             >
               Submit
             </button>
           </form>
           <button
             onClick={closeModal}
-            className='mt-4 w-full bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-200'
+            className='mt-4 w-full bg-gray-800 text-white py-2 px-4 rounded hover:bg-black transition duration-200'
           >
             Close
           </button>

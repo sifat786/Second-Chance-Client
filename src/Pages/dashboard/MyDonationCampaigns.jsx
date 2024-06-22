@@ -64,7 +64,7 @@ const MyDonationCampaigns = () => {
                 </td>
                 <td className='px-4 py-2 border'>
                   <div className='relative pt-1'>
-                    <div className='overflow-hidden h-4 mb-4 text-xs flex rounded bg-blue-200'>
+                    <div className='overflow-hidden h-4 mb-4 text-xs flex rounded bg-green-200'>
                       <div
                         style={{
                           width: `${
@@ -73,10 +73,10 @@ const MyDonationCampaigns = () => {
                             100
                           }%`,
                         }}
-                        className='shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500'
+                        className='shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500'
                       ></div>
                     </div>
-                    <span className='text-xs font-semibold inline-block text-blue-600'>
+                    <span className='text-xs font-semibold inline-block text-green-600'>
                       ${campaign.getDonationAmount} / $
                       {campaign.maxDonationAmount}
                     </span>
@@ -102,7 +102,7 @@ const MyDonationCampaigns = () => {
                       Edit
                     </button>
                   </Link>
-                  <button className='bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600'>
+                  <button className='bg-black text-white px-3 py-1 rounded'>
                     View Donators
                   </button>
                 </td>

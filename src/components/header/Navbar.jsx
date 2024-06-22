@@ -79,7 +79,7 @@ const Navbar = () => {
     <nav
       className={`bg-black dark:bg-gray-500 fixed w-full top-0 z-10 ${
         show ? "translate-y-0" : "-translate-y-full"
-      } bg-opacity-30 text-white transition-transform duration-300`}
+      } bg-opacity-60 text-white transition-transform duration-300`}
     >
       <div className='w-[90%] mx-auto navbar flex justify-between dark:bg-gray-500'>
         <div className='navbar-start max-w-60'>

@@ -113,7 +113,7 @@ const MyAddedPets = () => {
               <td className='px-4 py-2 border-b border-gray-200'>
                 <div className='flex space-x-2'>
                   <Link to={`/dashboard/updatePet/${pet._id}`}>
-                    <button className='bg-blue-500 text-white dark:text-gray-100 px-3 py-1 rounded hover:bg-blue-600'>
+                    <button className='bg-black text-white dark:text-gray-100 px-3 py-1 rounded'>
                       Update
                     </button>
                   </Link>
