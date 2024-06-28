@@ -1,4 +1,4 @@
-# [Live Preview](https://second-chance-8f474.web.app)
+# [Second-Chance](https://second-chance-8f474.web.app)
 
 ## Basic Features of the Animal Caring Website
 - After Sign-up, get a role "user".
